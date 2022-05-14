@@ -1,4 +1,4 @@
-﻿using System;
+﻿//using System; UniRx.ObservableExtensions conflict
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -38,9 +38,9 @@ namespace PrimeInputActions
             this.Owner = owner;
         }
         
-        public IObservable<InputAction.CallbackContext> StartedAsObservable(int priority = 0)
+        public System.IObservable<InputAction.CallbackContext> StartedAsObservable(int priority = 0)
         {
-            void OnRemoveSubscriber(Action<InputAction.CallbackContext> onNext)
+            void OnRemoveSubscriber(System.Action<InputAction.CallbackContext> onNext)
             {
                 InputActionSubscriber subscriber = startedSubscribers
                     .FirstOrDefault(it => it.Priority == priority && it.OnNext == onNext);
@@ -54,7 +54,7 @@ namespace PrimeInputActions
                 }
             }
             
-            void OnAddSubscriber(Action<InputAction.CallbackContext> onNext)
+            void OnAddSubscriber(System.Action<InputAction.CallbackContext> onNext)
             {
                 // Add the one callback that will update all subscribers
                 if (startedSubscribers == null)
@@ -74,9 +74,9 @@ namespace PrimeInputActions
             return Observable.FromEvent<InputAction.CallbackContext>(OnAddSubscriber, OnRemoveSubscriber);
         }
         
-        public IObservable<InputAction.CallbackContext> PerformedAsObservable(int priority = 0)
+        public System.IObservable<InputAction.CallbackContext> PerformedAsObservable(int priority = 0)
         {
-            void OnRemoveSubscriber(Action<InputAction.CallbackContext> onNext)
+            void OnRemoveSubscriber(System.Action<InputAction.CallbackContext> onNext)
             {
                 InputActionSubscriber subscriber = performedSubscribers
                     .FirstOrDefault(it => it.Priority == priority && it.OnNext == onNext);
@@ -90,7 +90,7 @@ namespace PrimeInputActions
                 }
             }
             
-            void OnAddSubscriber(Action<InputAction.CallbackContext> onNext)
+            void OnAddSubscriber(System.Action<InputAction.CallbackContext> onNext)
             {
                 // Add the one callback that will update all subscribers
                 if (performedSubscribers == null)
@@ -110,9 +110,9 @@ namespace PrimeInputActions
             return Observable.FromEvent<InputAction.CallbackContext>(OnAddSubscriber, OnRemoveSubscriber);
         }
 
-        public IObservable<InputAction.CallbackContext> CanceledAsObservable(int priority = 0)
+        public System.IObservable<InputAction.CallbackContext> CanceledAsObservable(int priority = 0)
         {
-            void OnRemoveSubscriber(Action<InputAction.CallbackContext> onNext)
+            void OnRemoveSubscriber(System.Action<InputAction.CallbackContext> onNext)
             {
                 InputActionSubscriber subscriber = canceledSubscribers
                     .FirstOrDefault(it => it.Priority == priority && it.OnNext == onNext);
@@ -126,7 +126,7 @@ namespace PrimeInputActions
                 }
             }
             
-            void OnAddSubscriber(Action<InputAction.CallbackContext> onNext)
+            void OnAddSubscriber(System.Action<InputAction.CallbackContext> onNext)
             {
                 // Add the one callback that will update all subscribers
                 if (canceledSubscribers == null)
@@ -211,9 +211,9 @@ namespace PrimeInputActions
         private class InputActionSubscriber
         {
             public int Priority { get; private set; }
-            public Action<InputAction.CallbackContext> OnNext { get; private set; }
+            public System.Action<InputAction.CallbackContext> OnNext { get; private set; }
 
-            public InputActionSubscriber(int priority, Action<InputAction.CallbackContext> onNext)
+            public InputActionSubscriber(int priority, System.Action<InputAction.CallbackContext> onNext)
             {
                 Priority = priority;
                 OnNext = onNext;
